@@ -6,6 +6,7 @@ const express = require('express'),
     Auth0Strategy = require('passport-auth0'),
     massive = require('massive'),
     session = require('express-session'),
+    cors = require('cors'),
     request = require('request');
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(session({
 }));
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -32,7 +34,6 @@ passport.use(new Auth0Strategy({
 },
     function (accessToken, refreshToken, extraParams, profile, done) {
         const db = app.get('db');
-        console.log(profile);
         db.find_user(profile.id).then(user => {
             if (user[0]) {
                 return done(null, user);
@@ -57,9 +58,9 @@ passport.deserializeUser(function (user, done) {
 
 app.get('/api/addSong', (req, res) => {
     var options = {
-        url: 'https://api.spotify.com/v1/recommendations?market=US&seed_tracks=7oK9VyNzrYvRFo7nQEYkWN&seed_artists=0C0XlULifJtAgn6ZNCW2eu&limit=100&min_popularity=50',
+        url: 'https://api.spotify.com/v1/recommendations?market=US&seed_tracks=4wFUdSCer8bdQsrp1M90sa&seed_artists=6roFdX1y5BYSbp60OTJWMd&limit=100&min_popularity=70',
         headers: {
-            "Authorization": "Bearer BQC7LOIDSa4S9nQe1hZ8uiUqVWfZ6tkUUtF549MYm9MOZG3HW8XuN9P-_ptFrZB8-MuRpFlR95-GOd5JuxBqbdtt2x0j-cI6keJdBCqOGie2rsiNz-gxZjF-yQGon4T6zFBPISQSckXhzEFzUA"
+            "Authorization": "Bearer BQCHa34e0db0ba7mVL2qmaa9r3kOBFcbhbEWljihRn7rg_i-OICy42BvohrQL3GqWiu-Fmy1UkvGflyvCuPuMmnVpJRUgaRPhBMfG1CdiwrLMaMmM5jsDj_XigNOUSrhYQEE3s6Fz7fzRTBiZg"
         }
     }
 
@@ -94,8 +95,13 @@ app.get('/api/addSong', (req, res) => {
     }
 
     request(options, callback);
-})
+});
 
+app.get('/api/getAll', (req, res) => {
+    app.get('db').get_all_songs().then(songs => {
+        res.status(200).send(songs);
+    });
+});
 
 const port = 3010;
 app.listen(port, console.log(`It's lit on ${port} fam!`));

@@ -1,0 +1,25 @@
+.song{
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.titleContainer{
+    position: absolute;
+    left: 150px;
+    max-width: 50ch;
+    text-align: center;
+}
+
+.albumContainer{
+    position: absolute;
+    left: 40%;
+    max-width: 60ch;
+    text-align: center;
+}
+
+.artistContainer{
+    position: absolute;
+    left: 80%;
+}

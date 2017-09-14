@@ -5,7 +5,7 @@ export default class Browse extends Component{
     render(){
         return(
             <div className='color'>
-                <h4>Hello</h4>
+                <h4>Browse</h4>
             </div>
         )
     }

@@ -10,15 +10,30 @@ class NavBar extends Component {
 
         this.state = {
             fireRedirect: false,
-            songSearch: ""
+            searchInput: ""
         }
     }
 
-    searchMusic = (e) => {
-        e.preventDefault();
+    searchMusic(){
         this.setState({
-            fireRedirect: true
+            fireRedirect: true,
+            searchInput: ""
         })
+    }
+
+    changeFireRedirect(){
+        this.setState({
+            fireRedirect: false
+        })
+    }
+
+    searchAll = (e) => {
+        e.preventDefault();
+        this.props.search(this.state.searchInput);
+        this.searchMusic();
+        setTimeout(() => {
+            this.changeFireRedirect();
+        }, 2000);
     }
 
     render() {
@@ -41,9 +56,9 @@ class NavBar extends Component {
                     </Link>
                 </div>
                 <div className='search'>
-                    <img src="../../images/search_logo.svg" alt="" className='searchLogo' />
-                    <form onSubmit={this.searchMusic}>
-                        <input type='text' placeholder='Search' className='searchBar' onChange={(e) => this.props.search(e.target.value)} />
+                    <img src='../../images/search.svg' alt="" className='searchLogo' />
+                    <form onSubmit={this.searchAll}>
+                        <input value={this.state.searchInput} type='text' placeholder='Search' className='searchBar' onChange={(e) => this.setState({searchInput: e.target.value})} />
                         <button type="submit" className='invisible'/>
                     </form>
                     {fireRedirect && (

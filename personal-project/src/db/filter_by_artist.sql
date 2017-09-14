@@ -1,3 +1,5 @@
 SELECT *
-FROM songs
-WHERE $1 = any(artist);
+FROM (
+    SELECT *, unnest(artist) artists
+    FROM songs) x
+WHERE LOWER(artists) LIKE LOWER('%' || $1 || '%');

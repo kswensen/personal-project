@@ -103,5 +103,38 @@ app.get('/api/getAll', (req, res) => {
     });
 });
 
-const port = 3010;
+app.get('/api/filterBySong', (req, res) => {
+    let { song } = req.query;
+    app.get('db').filter_by_song(song).then(songs => {
+        if(songs.length > 0){
+            res.status(200).send(songs);
+        } else {
+            res.status(404).send();
+        }
+    })
+})
+
+app.get('/api/filterByAlbum', (req, res) => {
+    let { album } = req.query;
+    app.get('db').filter_by_album(album).then(albums => {
+        if(albums.length > 0){
+            res.status(200).send(albums);
+        } else {
+            res.status(404).send();
+        }
+    });
+});
+
+app.get('/api/filterByArtist', (req, res) => {
+    let { artist } = req.query;
+    app.get('db').filter_by_artist(artist).then(artists => {
+        if(artists.length > 0){
+            res.status(200).send(artists);
+        } else {
+            res.status(404).send();
+        }
+    });
+});
+
+const port = 3011;
 app.listen(port, console.log(`It's lit on ${port} fam!`));

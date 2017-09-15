@@ -106,35 +106,27 @@ app.get('/api/getAll', (req, res) => {
 app.get('/api/filterBySong', (req, res) => {
     let { song } = req.query;
     app.get('db').filter_by_song(song).then(songs => {
-        if(songs.length > 0){
-            res.status(200).send(songs);
-        } else {
-            res.status(404).send();
-        }
+        res.status(200).send(songs);
     })
 })
 
 app.get('/api/filterByAlbum', (req, res) => {
+    console.log(req.query);
     let { album } = req.query;
+    console.log(album)
     app.get('db').filter_by_album(album).then(albums => {
-        if(albums.length > 0){
-            res.status(200).send(albums);
-        } else {
-            res.status(404).send();
-        }
+        console.log(albums)
+        res.status(200).send(albums);
     });
 });
 
 app.get('/api/filterByArtist', (req, res) => {
     let { artist } = req.query;
+    console.log(artist)
     app.get('db').filter_by_artist(artist).then(artists => {
-        if(artists.length > 0){
-            res.status(200).send(artists);
-        } else {
-            res.status(404).send();
-        }
+        res.status(200).send(artists);
     });
 });
 
-const port = 3011;
+const port = 3010;
 app.listen(port, console.log(`It's lit on ${port} fam!`));

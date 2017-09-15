@@ -2,42 +2,37 @@ import React, { Component } from 'react';
 import './NavBar.css';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { search } from '../../ducks/reducer';
+import { search, updateSearchID, updateFireRedirect } from '../../ducks/reducer';
+let id = 0;
 
 class NavBar extends Component {
     constructor(){
         super();
 
         this.state = {
-            fireRedirect: false,
             searchInput: ""
         }
     }
 
     searchMusic(){
         this.setState({
-            fireRedirect: true,
             searchInput: ""
-        })
-    }
-
-    changeFireRedirect(){
-        this.setState({
-            fireRedirect: false
         })
     }
 
     searchAll = (e) => {
         e.preventDefault();
+        this.props.updateSearchID(id);
         this.props.search(this.state.searchInput);
+        id++;
         this.searchMusic();
+        this.props.updateFireRedirect(true);
         setTimeout(() => {
-            this.changeFireRedirect();
+            this.props.updateFireRedirect(false);
         }, 2000);
     }
 
     render() {
-        const {fireRedirect} = this.state;
         return (
             <div className='navbarContainer'>
                 <div className='logoContainer'>
@@ -61,8 +56,8 @@ class NavBar extends Component {
                         <input value={this.state.searchInput} type='text' placeholder='Search' className='searchBar' onChange={(e) => this.setState({searchInput: e.target.value})} />
                         <button type="submit" className='invisible'/>
                     </form>
-                    {fireRedirect && (
-                        <Redirect to={'/search'} />
+                    {this.props.fireRedirect && (
+                        <Redirect to={`/search`} />
                     )}
                 </div>
             </div>
@@ -71,8 +66,10 @@ class NavBar extends Component {
 }
 function mapStateToProps(state){
     return{
-        searchTerm: state.searchTerm
+        searchTerm: state.searchTerm,
+        searchID: state.searchID,
+        fireRedirect: state.fireRedirect
     }
 }
 
-export default connect(mapStateToProps, { search })(NavBar);
+export default connect(mapStateToProps, { search, updateSearchID, updateFireRedirect })(NavBar);

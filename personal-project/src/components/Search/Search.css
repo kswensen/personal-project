@@ -1,8 +1,9 @@
 .song{
-    background: white;
+    background: black;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: white;
 }
 
 .titleContainer{
@@ -22,4 +23,13 @@
 .artistContainer{
     position: absolute;
     left: 80%;
+}
+
+.album{
+    display: inline-block;
+    text-align: center;
+}
+
+.album p{
+    max-width: 50ch;
 }

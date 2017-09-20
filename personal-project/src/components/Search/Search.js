@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import _ from 'underscore';
 import './Search.css';
-
+import { updateSongOffset, updateArtistOffset, updateAlbumOffset } from '../../ducks/reducer';
 
 class Search extends Component {
     constructor() {
@@ -17,21 +17,21 @@ class Search extends Component {
     }
 
     componentWillMount() {
-        axios.get('http://localhost:3010/api/filterBySong?song=' + this.props.searchTerm).then(res => {
+        axios.get('http://localhost:3030/api/filterBySong?song=' + this.props.searchTerm).then(res => {
             if (res.status === 200) {
                 this.setState({
                     songs: res.data
                 })
             }
         });
-        axios.get('http://localhost:3010/api/filterByAlbum?album=' + this.props.searchTerm).then(res => {
+        axios.get('http://localhost:3030/api/filterByAlbum?album=' + this.props.searchTerm).then(res => {
             if (res.status === 200) {
                 this.setState({
                     albums: res.data
                 })
             }
         });
-        axios.get('http://localhost:3010/api/filterByArtist?artist=' + this.props.searchTerm).then(res => {
+        axios.get('http://localhost:3030/api/filterByArtist?artist=' + this.props.searchTerm).then(res => {
             if (res.status === 200) {
                 var artistArr = [];
                 for (var i = 0; i < res.data.length; i++) {
@@ -52,17 +52,17 @@ class Search extends Component {
     componentWillReceiveProps(props) {
         var songs;
         var albums;
-        axios.get('http://localhost:3010/api/filterBySong?song=' + props.searchTerm).then(res => {
+        axios.get('http://localhost:3030/api/filterBySong?song=' + props.searchTerm).then(res => {
             if (res.status === 200) {
                 songs = res.data;
             }
         }).then(response2 => {
-            axios.get('http://localhost:3010/api/filterByAlbum?album=' + props.searchTerm).then(res => {
+            axios.get('http://localhost:3030/api/filterByAlbum?album=' + props.searchTerm).then(res => {
                 if (res.status === 200) {
                     albums = res.data;
                 }
             }).then(response3 => {
-                axios.get('http://localhost:3010/api/filterByArtist?artist=' + props.searchTerm).then(res => {
+                axios.get('http://localhost:3030/api/filterByArtist?artist=' + props.searchTerm).then(res => {
                     if (res.status === 200) {
                         var artistArr = [];
                         var allArtists = [];
@@ -85,6 +85,39 @@ class Search extends Component {
         })
 
 
+    }
+
+    getSongs(){
+        axios.get(`http://localhost:3030/api/getSongs?searchTerm=${this.props.searchTerm}&offset=${this.props.songOffset}`).then(res => {
+            let newSongs = [...this.state.songs, res.data];
+            newSongs = _.flatten(newSongs);
+            this.setState({
+                songs: newSongs
+            })
+        });
+        this.props.updateSongOffset(this.props.songOffset + 20);
+    }
+
+    getArtists(){
+        axios.get(`http://localhost:3030/api/getArtists?searchTerm=${this.props.searchTerm}&offset=${this.props.artistOffset}`).then(res => {
+           let newArtists = [...this.state.artists, res.data];
+           newArtists = _.flatten(newArtists);
+           this.setState({
+               artists: newArtists
+           });
+        });
+        this.props.updateArtistOffset(this.props.artistOffset + 20);
+    }
+
+    getAlbums(){
+        axios.get(`http://localhost:3030/api/getAlbums?searchTerm=${this.props.searchTerm}&offset=${this.props.albumOffset}`).then(res => {
+            let newAlbums = [...this.state.albums, res.data];
+            newAlbums = _.flatten(newAlbums);
+            this.setState({
+                albums: newAlbums
+            });
+        });
+        this.props.updateAlbumOffset(this.props.albumOffset + 20);
     }
 
     render() {
@@ -153,10 +186,13 @@ class Search extends Component {
                 <h3>Global State: {this.props.searchTerm}</h3>
                 <h1>Songs</h1>
                 {filteredSongs}
+                <button onClick={() => this.getSongs()}>Want more songs?</button>
                 <h1>Albums</h1>
                 {filteredAlbums}
+                <button onClick={() => this.getAlbums()}>Want more albums?</button>
                 <h1>Artists</h1>
                 {filteredArtists}
+                <button onClick={() => this.getArtists()}>Want more artists?</button>
             </div>
         )
     }
@@ -165,8 +201,11 @@ class Search extends Component {
 function mapStateToProps(state) {
     return {
         searchTerm: state.searchTerm,
-        fireRedirect: state.fireRedirect
+        fireRedirect: state.fireRedirect,
+        songOffset: state.songOffset,
+        artistOffset: state.artistOffset,
+        albumOffset: state.albumOffset
     }
 }
 
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps, { updateSongOffset, updateArtistOffset, updateAlbumOffset })(Search);

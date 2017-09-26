@@ -1,5 +1,17 @@
 .color{
-    background: blue;
-    height: 100vh;
-    width: 100%;
+    background: #036278;
+    height: 100%;
+}
+.link{
+    text-decoration: none;
+}
+
+.album{
+    display: inline-block;
+    text-align: center;
+}
+
+.album p{
+    color: white;
+    margin-top: -50px;
 }

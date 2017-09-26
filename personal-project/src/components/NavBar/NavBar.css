@@ -61,3 +61,15 @@
 .invisible{
     display: none;
 }
+
+.login{
+    display: flex;
+}
+
+.login h4{
+    margin-right: 10px;
+}
+
+.logout{
+    align-self: center;
+}

@@ -35,14 +35,13 @@ passport.use(new Auth0Strategy({
     function (accessToken, refreshToken, extraParams, profile, done) {
         app.get('db').find_user(profile.id).then(user => {
             if (user[0]) {
-                return done(null, user);
+                done(null, user);
             } else {
                 app.get('db').create_user([profile.name.givenName, profile.name.familyName, profile.id]).then(user => {
-                    return done(null, user[0]);
+                    done(null, user[0]);
                 });
             }
         });
-        return done(null, profile)
     }
 ));
 
@@ -51,29 +50,30 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-    app.get('db').find_session_user(user[0].id).then(user => {
-        return done(null, user[0]);
-    });
+    // app.get('db').find_session_user(user[0].id).then(user => {
+    //     return done(null, user[0]);
+    // });
+    done(null, user);
 });
 
 app.get('/auth', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3002/#/browse', 
-    failureRedirect: 'http://localhost:3002/#/'
+    successRedirect: 'http://localhost:3000/#/browse', 
+    failureRedirect: '/'
 }));
 
-app.get('/auth/me', (req, res) => {
+app.get('/auth/me', (req, res, next) => {
     if(!req.user){
-        return res.status(404).send("User not found");
+        res.status(200).send("User not found");
     } else {
-        return res.status(200).send(req.user);
+        res.status(200).send(req.user);
     }
 });
 
 app.get('/auth/logout', (req, res) => {
     req.logOut();
-    return res.redirect(302, 'http://localhost:3002/#/');
+    res.redirect(302, 'http://localhost:3000/#/');
 });
 
 app.get('/api/addSong', (req, res) => {
@@ -149,7 +149,7 @@ app.get('/api/getSongs', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/search?q=${searchTerm}&type=track&offset=${offset}`,
         headers: {
-            "Authorization": "Bearer BQC0vf89IlNVaTaIUVYtgHl7IQ2hXhp85QBz7gLyxbXsyUtO76VaFLmv9xBDxJShb_kyODB4G79DwsnP9wH0Gu6-moztMus93sDnkjNKM8JjtypFQIpy8oYlAIRK2EEcwXsInobxKyMXE4G6BA"
+            "Authorization": "Bearer BQAlxAji16rfwWF1A0fM_FWlDuB3pqyFBQ6dteUXC3XxAiFr-uQiIKLd18yObCwKsQKJCbhU05CVl1qk8J5zajzYRJdSfbu6oHrjSVI6lBahSBgFBKHFZ2VdCORaO4pDGmCvhI1I1_1MwyRTHw"
         }
     }
 
@@ -175,18 +175,18 @@ app.get('/api/getSongs', (req, res) => {
                     artist: artistArray,
                     explicit: explicit,
                     title: title,
-                    songCover: smallImg
+                    song_artwork: smallImg
                 };
                 newSongs.push(tempSong);
-                // app.get('db').find_song(uri).then(song => {
-                //     if(song[0]){
-                //         console.log('Song exists');
-                //     } else {
-                //         app.get('db').add_song(title, album, artistArray, popularity, duration, mediumImg, smallImg, explicit, uri).then(added => {
-                //             console.log('Added');
-                //         }); 
-                //     }
-                // });
+                app.get('db').find_song(uri).then(song => {
+                    if(song[0]){
+                        console.log('Song exists');
+                    } else {
+                        app.get('db').add_song(title, album, artistArray, popularity, duration, mediumImg, smallImg, explicit, uri).then(added => {
+                            console.log('Added');
+                        }); 
+                    }
+                });
             }
             res.status(200).send(newSongs);
         }
@@ -200,7 +200,7 @@ app.get('/api/getArtists', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/search?q=${searchTerm}&type=Artist&offset=${offset}`,
         headers: {
-            "Authorization": "Bearer BQC0vf89IlNVaTaIUVYtgHl7IQ2hXhp85QBz7gLyxbXsyUtO76VaFLmv9xBDxJShb_kyODB4G79DwsnP9wH0Gu6-moztMus93sDnkjNKM8JjtypFQIpy8oYlAIRK2EEcwXsInobxKyMXE4G6BA"
+            "Authorization": "Bearer BQAlxAji16rfwWF1A0fM_FWlDuB3pqyFBQ6dteUXC3XxAiFr-uQiIKLd18yObCwKsQKJCbhU05CVl1qk8J5zajzYRJdSfbu6oHrjSVI6lBahSBgFBKHFZ2VdCORaO4pDGmCvhI1I1_1MwyRTHw"
         }
     }
 
@@ -223,7 +223,7 @@ app.get('/api/getAlbums', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/search?q=${searchTerm}&type=Album&offset=${offset}`,
         headers: {
-            "Authorization": "Bearer BQC0vf89IlNVaTaIUVYtgHl7IQ2hXhp85QBz7gLyxbXsyUtO76VaFLmv9xBDxJShb_kyODB4G79DwsnP9wH0Gu6-moztMus93sDnkjNKM8JjtypFQIpy8oYlAIRK2EEcwXsInobxKyMXE4G6BA"
+            "Authorization": "Bearer BQAlxAji16rfwWF1A0fM_FWlDuB3pqyFBQ6dteUXC3XxAiFr-uQiIKLd18yObCwKsQKJCbhU05CVl1qk8J5zajzYRJdSfbu6oHrjSVI6lBahSBgFBKHFZ2VdCORaO4pDGmCvhI1I1_1MwyRTHw"
         }
     }
 
@@ -250,6 +250,96 @@ app.get('/api/getAlbums', (req, res) => {
     }
 
     request(options, callback);
+});
+
+app.get('/api/getCategories', (req, res) => { 
+    var options = {
+        url: "https://api.spotify.com/v1/browse/categories?country=US&limit=50",
+        headers: {
+            "Authorization": "Bearer BQDneQhJltcVu2vg8pdED8M3VQpmN1FQZZnu8S5ndQ6QqzmNOTynCv_43QpBTDpmLl4l1K_gqLtTMVpeXR62Qandh-Q2EUzrXDQD9E5nrhpPaPJRJqLzOsZoFonv31wisndRX2u5zr-ePPgmZQ"
+        }
+    }
+
+    callback = (err, response, body) => {
+        if(!err && response.statusCode === 200){
+            var results = JSON.parse(body);
+            res.status(200).send(results.categories.items);
+        }
+    }
+
+    request(options, callback);
+});
+
+app.get('/api/getCategoryPlaylists', (req, res) => {
+    const { id } = req.query;
+    var options = {
+        url: `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=US&limit=20`,
+        headers: {
+            "Authorization": "Bearer BQDneQhJltcVu2vg8pdED8M3VQpmN1FQZZnu8S5ndQ6QqzmNOTynCv_43QpBTDpmLl4l1K_gqLtTMVpeXR62Qandh-Q2EUzrXDQD9E5nrhpPaPJRJqLzOsZoFonv31wisndRX2u5zr-ePPgmZQ"
+        }
+    }
+
+    callback = (err, response, body) => {
+        if(!err && response.statusCode === 200){
+            var results = JSON.parse(body);
+            res.status(200).send(results.playlists.items);
+        }
+    }
+
+    request(options, callback);
+});
+
+app.get('/api/getPlaylistsTracks', (req, res) => {
+    const { id } = req.query;
+    var options = {
+        url: `https://api.spotify.com/v1/users/spotify/playlists/${id}`,
+        headers: {
+            "Authorization": "Bearer BQDneQhJltcVu2vg8pdED8M3VQpmN1FQZZnu8S5ndQ6QqzmNOTynCv_43QpBTDpmLl4l1K_gqLtTMVpeXR62Qandh-Q2EUzrXDQD9E5nrhpPaPJRJqLzOsZoFonv31wisndRX2u5zr-ePPgmZQ"
+        }
+    }
+
+    callback = (err, response, body) => {
+        if(!err && response.statusCode === 200){
+            var results = JSON.parse(body);
+            let playlistInfo = [];
+            playlistInfo.push(results.description);
+            playlistInfo.push(results.images[0].url);
+            playlistInfo.push(results.name);
+            playlistInfo.push(results.tracks);
+            res.status(200).send(playlistInfo);
+        }
+    }
+
+    request(options, callback);
+});
+
+app.get('/api/getUserSongs', (req, res) => {
+    if(req.user){
+        app.get('db').get_users_songs(req.user[0].id).then(songs => {
+            res.status(200).send(songs);
+        });
+    }
+});
+
+app.post('/api/addToFavorites', (req, res) => {
+    const { songid } = req.body;
+    app.get('db').add_to_favorites(req.user[0].id, songid).then(song => {
+        res.status(200).send('Song Added');
+    });
+});
+
+app.delete('/api/removeFavorite', (req, res) => {
+    const { songid } = req.query;
+    app.get('db').delete_favorite(req.user[0].id, songid).then(song => {
+        res.status(200).send('Song Removed');
+    });
+});
+
+app.put('/api/updateUserInfo', (req, res) => {
+    const { first_name, last_name, favorite_genre } = req.query;
+    app.get('db').update_user([first_name, last_name, favorite_genre, req.user[0].id]).then(user => {
+        res.status(200).send(user);
+    });
 });
 
 const port = 3030;

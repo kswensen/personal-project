@@ -2,7 +2,8 @@ CREATE TABLE users(
     id SERIAL PRIMARY KEY,
 	first_name TEXT,
     last_name TEXT,
-    authId TEXT
+    authId TEXT,
+    favorite_genre TEXT
 );
 
 CREATE TABLE songs(

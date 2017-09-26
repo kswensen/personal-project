@@ -1,6 +1,20 @@
-.background{
-    background: #036278;
-    height: 100vh;
+.header{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.headerLeft{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.headerRight{
+    display: flex;
+    flex-flow: column;
 }
 
 .song{
@@ -20,12 +34,6 @@
     
 }
 
-.addSong{
-    margin-right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
 .albumContainer{
     position: absolute;
     left: 40%;
@@ -36,13 +44,4 @@
 .artistContainer{
     position: absolute;
     left: 80%;
-}
-
-.album{
-    display: inline-block;
-    text-align: center;
-}
-
-.album p{
-    max-width: 50ch;
 }

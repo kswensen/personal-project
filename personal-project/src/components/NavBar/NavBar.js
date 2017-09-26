@@ -3,12 +3,11 @@ import './NavBar.css';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { search, updateSearchID, updateFireRedirect, updateLoggedIn, resetOffset } from '../../ducks/reducer';
-let id = 0;
+import { search, updateFireRedirect, resetOffset, getUserInfo, clearUser } from '../../ducks/reducer';
 
 class NavBar extends Component {
-    constructor(){
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             searchInput: "",
@@ -16,11 +15,22 @@ class NavBar extends Component {
         }
     }
 
-    componentDidMount(){
-
+    componentWillMount() {
+        this.props.getUserInfo();
+        axios.get('/auth/me').then(res => {
+            if (res.data == 'User not found') {
+                this.setState({
+                    loggedIn: false
+                })
+            } else {
+                this.setState({
+                    loggedIn: true
+                })
+            }
+        });
     }
 
-    searchMusic(){
+    searchMusic() {
         this.setState({
             searchInput: ""
         })
@@ -28,9 +38,7 @@ class NavBar extends Component {
 
     searchAll = (e) => {
         e.preventDefault();
-        this.props.updateSearchID(id);
         this.props.search(this.state.searchInput);
-        id++;
         this.searchMusic();
         this.props.updateFireRedirect(true);
         this.props.resetOffset();
@@ -57,20 +65,25 @@ class NavBar extends Component {
                         <h3>My Music</h3>
                     </Link>
                 </div>
-                <div className='login'>
+                <div>
                     {
                         this.state.loggedIn
-                        ?
-                        <a href={process.env.REACT_APP_LOGOUT}><button className='loginButton' onClick={() => setTimeout(() => {this.props.updateLoggedIn(false)}, 2000)}>Log Out</button></a>
-                        :
-                        <a href={process.env.REACT_APP_LOGIN}><button className='loginButton' onClick={() => setTimeout(() => {this.setState({loggedIn: true})}, 2000)}>Login</button></a>
+                            ?
+                            <div className='login'>
+                                <Link to='/profile' className='link'>
+                                    <h4>{this.props.user.first_name} {this.props.user.last_name}</h4>
+                                </Link>
+                                <a href={process.env.REACT_APP_LOGOUT} className='logout' onClick={() => this.props.clearUser()}><button>Log Out</button></a>
+                            </div>
+                            :
+                            <a href={process.env.REACT_APP_LOGIN}><button className='loginButton'>Login</button></a>
                     }
                 </div>
                 <div className='search'>
-                    <img src='../../images/search.svg' alt="" className='searchLogo' />
+                    <img src='./images/search.svg' alt="" className='searchLogo' />
                     <form onSubmit={this.searchAll}>
-                        <input value={this.state.searchInput} type='text' placeholder='Search' className='searchBar' onChange={(e) => this.setState({searchInput: e.target.value})} />
-                        <button type="submit" className='invisible'/>
+                        <input value={this.state.searchInput} type='text' placeholder='Search' className='searchBar' onChange={(e) => this.setState({ searchInput: e.target.value })} />
+                        <button type="submit" className='invisible' />
                     </form>
                     {this.props.fireRedirect && (
                         <Redirect to={`/search`} />
@@ -80,15 +93,14 @@ class NavBar extends Component {
         )
     }
 }
-function mapStateToProps(state){
-    return{
+function mapStateToProps(state) {
+    return {
         searchTerm: state.searchTerm,
-        searchID: state.searchID,
         fireRedirect: state.fireRedirect,
-        loggedIn: state.loggedIn,
         songOffset: state.songOffset,
-        artistOffset: state.artistOffset
+        artistOffset: state.artistOffset,
+        user: state.user
     }
 }
 
-export default connect(mapStateToProps, { search, updateSearchID, updateFireRedirect, updateLoggedIn, resetOffset })(NavBar);
+export default connect(mapStateToProps, { search, updateFireRedirect, resetOffset, getUserInfo, clearUser })(NavBar);

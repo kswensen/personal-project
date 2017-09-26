@@ -12,32 +12,38 @@ class Search extends Component {
         this.state = {
             songs: [],
             artists: [],
-            albums: []
+            albums: [],
+            userSongs: []
         }
     }
 
     componentWillMount() {
-        axios.get('http://localhost:3030/api/filterBySong?song=' + this.props.searchTerm).then(res => {
+        axios.get('/api/getUserSongs').then(res => {
+            this.setState({
+                userSongs: res.data
+            });
+        });
+        axios.get('/api/filterBySong?song=' + this.props.searchTerm).then(res => {
             if (res.status === 200) {
                 this.setState({
                     songs: res.data
                 })
             }
         });
-        axios.get('http://localhost:3030/api/filterByAlbum?album=' + this.props.searchTerm).then(res => {
+        axios.get('/api/filterByAlbum?album=' + this.props.searchTerm).then(res => {
             if (res.status === 200) {
                 this.setState({
                     albums: res.data
                 })
             }
         });
-        axios.get('http://localhost:3030/api/filterByArtist?artist=' + this.props.searchTerm).then(res => {
+        axios.get('/api/filterByArtist?artist=' + this.props.searchTerm).then(res => {
             if (res.status === 200) {
                 var artistArr = [];
                 for (var i = 0; i < res.data.length; i++) {
                     artistArr.push(res.data[i].artist)
                 }
-                if(artistArr[0]){
+                if (artistArr[0]) {
                     var allArtists = artistArr.reduce((prev, curr) => {
                         return [...prev, ...curr];
                     });
@@ -46,23 +52,23 @@ class Search extends Component {
                     artists: allArtists
                 })
             }
-        })
+        });
     }
 
     componentWillReceiveProps(props) {
         var songs;
         var albums;
-        axios.get('http://localhost:3030/api/filterBySong?song=' + props.searchTerm).then(res => {
+        axios.get('/api/filterBySong?song=' + props.searchTerm).then(res => {
             if (res.status === 200) {
                 songs = res.data;
             }
         }).then(response2 => {
-            axios.get('http://localhost:3030/api/filterByAlbum?album=' + props.searchTerm).then(res => {
+            axios.get('/api/filterByAlbum?album=' + props.searchTerm).then(res => {
                 if (res.status === 200) {
                     albums = res.data;
                 }
             }).then(response3 => {
-                axios.get('http://localhost:3030/api/filterByArtist?artist=' + props.searchTerm).then(res => {
+                axios.get('/api/filterByArtist?artist=' + props.searchTerm).then(res => {
                     if (res.status === 200) {
                         var artistArr = [];
                         var allArtists = [];
@@ -87,8 +93,8 @@ class Search extends Component {
 
     }
 
-    getSongs(){
-        axios.get(`http://localhost:3030/api/getSongs?searchTerm=${this.props.searchTerm}&offset=${this.props.songOffset}`).then(res => {
+    getSongs() {
+        axios.get(`/api/getSongs?searchTerm=${this.props.searchTerm}&offset=${this.props.songOffset}`).then(res => {
             let newSongs = [...this.state.songs, res.data];
             newSongs = _.flatten(newSongs);
             this.setState({
@@ -98,19 +104,19 @@ class Search extends Component {
         this.props.updateSongOffset(this.props.songOffset + 20);
     }
 
-    getArtists(){
-        axios.get(`http://localhost:3030/api/getArtists?searchTerm=${this.props.searchTerm}&offset=${this.props.artistOffset}`).then(res => {
-           let newArtists = [...this.state.artists, res.data];
-           newArtists = _.flatten(newArtists);
-           this.setState({
-               artists: newArtists
-           });
+    getArtists() {
+        axios.get(`/api/getArtists?searchTerm=${this.props.searchTerm}&offset=${this.props.artistOffset}`).then(res => {
+            let newArtists = [...this.state.artists, res.data];
+            newArtists = _.flatten(newArtists);
+            this.setState({
+                artists: newArtists
+            });
         });
         this.props.updateArtistOffset(this.props.artistOffset + 20);
     }
 
-    getAlbums(){
-        axios.get(`http://localhost:3030/api/getAlbums?searchTerm=${this.props.searchTerm}&offset=${this.props.albumOffset}`).then(res => {
+    getAlbums() {
+        axios.get(`/api/getAlbums?searchTerm=${this.props.searchTerm}&offset=${this.props.albumOffset}`).then(res => {
             let newAlbums = [...this.state.albums, res.data];
             newAlbums = _.flatten(newAlbums);
             this.setState({
@@ -120,16 +126,37 @@ class Search extends Component {
         this.props.updateAlbumOffset(this.props.albumOffset + 20);
     }
 
-    render() {
+    addSong(songid) {
+        const config = {
+            songid: songid
+        }
+        axios.post('/api/addToFavorites', config).then(res => {
+            alert(res.data);
+        });
+    }
 
+    render() {
         // Songs
 
         if (typeof this.state.songs === 'object') {
             var filteredSongs = this.state.songs.map((song, i) => {
                 const splitArtists = song.artist.toLocaleString().replace(',', ', ');
+                let existingSong = false;
+                for (var j = 0; j < this.state.userSongs.length; j++) {
+                    if (song.songuri === this.state.userSongs[j].songuri) {
+                        existingSong = true;
+                    }
+                }
                 return <ul key={i} className='song'>
                     <img src={song.song_artwork} />
                     <div className='titleContainer'>
+                        {
+                            existingSong
+                                ?
+                                <p className='addSong'>X</p>
+                                :
+                                <p className='addSong' onClick={() => this.addSong(song.songid)}>+</p>
+                        }
                         <p>Title: {song.title}</p>
                     </div>
                     <div className='albumContainer'>
@@ -139,7 +166,7 @@ class Search extends Component {
                         <p>Artist: {splitArtists}</p>
                     </div>
                 </ul>
-            })
+            });
         } else {
             filteredSongs = `No Songs Match: ${this.props.searchTerm}`;
         }
@@ -155,7 +182,7 @@ class Search extends Component {
                     <p>Artist: {splitArtists}</p>
                 </ul>
             })
-            if(!this.state.albums[0]) {
+            if (!this.state.albums[0]) {
                 filteredAlbums = `No Albums Match: ${this.props.searchTerm}`
             }
         } else {
@@ -174,14 +201,14 @@ class Search extends Component {
                     <p>Artist: {artist}</p>
                 </ul>
             })
-            if(!this.state.artists[0]) {
+            if (!this.state.artists[0]) {
                 filteredArtists = `No Artists Match: ${this.props.searchTerm}`
             }
         } else {
             filteredArtists = `No Artists Match: ${this.props.searchTerm}`;
         }
         return (
-            <div>
+            <div className='background'>
                 <h4>Search Results</h4>
                 <h3>Global State: {this.props.searchTerm}</h3>
                 <h1>Songs</h1>

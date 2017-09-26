@@ -1,0 +1,13 @@
+.album{
+    display: inline-block;
+    text-align: center;
+}
+
+.album p{
+    color: white;
+    margin: inherit;
+}
+
+.link{
+    text-decoration: none;
+}

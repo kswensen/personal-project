@@ -1,17 +1,40 @@
-.color{
-    background: #036278;
-    height: 100%;
+.browseBackground{
+    /* background: #036278; */
+    background: linear-gradient(to bottom, #08AEEA 0%, #2AF598 100%);    
 }
 .link{
     text-decoration: none;
 }
 
+.link img{
+    height: auto;
+    width: 350px;
+}
+
 .album{
     display: inline-block;
     text-align: center;
+    padding: 0;
+    margin: .6vw;
 }
 
 .album p{
     color: white;
     margin-top: -50px;
+}
+
+h4{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+.categories{
+    display: inline-flex;
+    flex-flow: wrap;
+    justify-content: center;
+    margin: 0 10px;
+
 }

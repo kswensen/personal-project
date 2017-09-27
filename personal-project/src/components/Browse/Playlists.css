@@ -1,13 +1,22 @@
-.album{
+.playlistAlbum{
     display: inline-block;
     text-align: center;
 }
 
-.album p{
+.playlistAlbum p{
     color: white;
-    margin: inherit;
 }
 
 .link{
     text-decoration: none;
+}
+
+h1{
+    text-align: center;
+}
+
+.playlistContainer{
+    display: inline-flex;
+    flex-flow: wrap;
+    justify-content: center;
 }

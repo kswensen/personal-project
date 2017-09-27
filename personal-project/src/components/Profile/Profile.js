@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateFirst, updateLast, updateUser, updateGenre } from '../../ducks/reducer';
+import { updateFirst, updateLast, updateUser, updateGenre, toggleHidden } from '../../ducks/reducer';
 import './Profile.css';
 
 class Profile extends Component{
 
     update(){
         this.props.updateUser(this.props.first_name, this.props.last_name, this.props.favorite_genre);
-        window.history.back();
+        this.props.toggleHidden();
     }
 
     cancel(){
-        window.history.back();
+        this.props.toggleHidden();
         this.props.updateFirst('');
         this.props.updateLast('');
     }
@@ -44,8 +44,9 @@ function mapStateToProps(state){
         user: state.user,
         first_name: state.first_name,
         last_name: state.last_name,
-        favorite_genre: state.favorite_genre
+        favorite_genre: state.favorite_genre,
+        hidden: state.hidden
     }
 }
 
-export default connect(mapStateToProps, { updateFirst, updateLast, updateUser, updateGenre })(Profile);
+export default connect(mapStateToProps, { updateFirst, updateLast, updateUser, updateGenre, toggleHidden })(Profile);

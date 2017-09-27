@@ -9,7 +9,11 @@ const initialState = {
     favorite_genre: '',
     songOffset: 0,
     artistOffset: 0,
-    albumOffset: 0
+    albumOffset: 0,
+    category_name: '',
+    category_id: '',
+    playlist_id: '',
+    hidden: true
 }
 
 const UPDATE_SEARCH_TERM = "UPDATE_SEARCH_TERM";
@@ -24,6 +28,10 @@ const UPDATE_SONG_OFFSET = 'UPDATE_SONG_OFFSET';
 const UPDATE_ARTIST_OFFSET = 'UPDATE_ARTIST_OFFSET';
 const UPDATE_ALBUM_OFFSET = 'UPDATE_ALBUM_OFFSET';
 const RESET_OFFSET = 'RESET_OFFSET';
+const UPDATE_CATEGORY_NAME = 'UPDATE_CATEGORY_NAME';
+const UPDATE_CATEGORY_ID = 'UPDATE_CATEGORY_ID';
+const UPDATE_PLAYLIST_ID = 'UPDATE_PLAYLIST_ID';
+const TOGGLE_HIDDEN = 'TOGGLE_HIDDEN';
 
 export function search(entered){
     return {
@@ -118,32 +126,84 @@ export function resetOffset(){
     }
 }
 
+export function updateCategoryName(category){
+    return{
+        type: UPDATE_CATEGORY_NAME,
+        payload: category
+    }
+}
+
+export function updateCategoryID(id){
+    return{
+        type: UPDATE_CATEGORY_ID,
+        payload: id
+    }
+}
+
+export function updatePlaylistID(id){
+    return{
+        type: UPDATE_PLAYLIST_ID,
+        payload: id
+    }
+}
+
+export function toggleHidden(){
+    return{
+        type: TOGGLE_HIDDEN
+    }
+}
+
 export default function reducer(state = initialState, action){
     switch(action.type){
+
         case UPDATE_SEARCH_TERM:
             return Object.assign({}, state, {searchTerm: action.payload});
+
         case UPDATE_FIRE_REDIRECT:
             return Object.assign({}, state, {fireRedirect: action.payload});
+
         case GET_USER_INFO + "_FULFILLED":
             return Object.assign({}, state, {user: action.payload});
+
         case UPDATE_FIRST_NAME:
             return Object.assign({}, state, {first_name: action.payload});
+
         case UPDATE_LAST_NAME:
             return Object.assign({}, state, {last_name: action.payload});
+
         case UPDATE_FAVORITE_GENRE:
             return Object.assign({}, state, {favorite_genre: action.payload});
+
         case UPDATE_USER + "_FULFILLED":
             return Object.assign({}, state, {user: action.payload});
+
         case CLEAR_USER:
             return Object.assign({}, state, {user: action.payload});
+
         case UPDATE_SONG_OFFSET:
             return Object.assign({}, state, {songOffset: action.payload});
+
         case UPDATE_ARTIST_OFFSET:
             return Object.assign({}, state, {artistOffset: action.payload});
+
         case UPDATE_ALBUM_OFFSET:
             return Object.assign({}, state, {albumOffset: action.payload});
+
         case RESET_OFFSET:
-            return Object.assign({}, state, {songOffset: action.payload, artistOffset: action.payload, albumOffset: action.payload});  
+            return Object.assign({}, state, {songOffset: action.payload, artistOffset: action.payload, albumOffset: action.payload});
+        
+        case UPDATE_CATEGORY_NAME:
+            return Object.assign({}, state, {category_name: action.payload});
+
+        case UPDATE_CATEGORY_ID:
+            return Object.assign({}, state, {category_id: action.payload});
+
+        case UPDATE_PLAYLIST_ID:
+            return Object.assign({}, state, {playlist_id: action.payload}); 
+
+        case TOGGLE_HIDDEN:
+            return Object.assign({}, state, {hidden: !state.hidden}); 
+             
         default:
             return state;
     }

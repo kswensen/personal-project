@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import './Tracks.css';
 
-export default class Tracks extends Component {
+class Tracks extends Component {
     constructor() {
         super();
 
@@ -15,7 +16,7 @@ export default class Tracks extends Component {
     }
 
     componentDidMount() {
-        axios.get(`/api/getPlaylistsTracks?id=${this.props.location.query}`).then(res => {
+        axios.get(`/api/getPlaylistsTracks?id=${this.props.playlist_id}`).then(res => {
             this.setState({
                 description: res.data[0],
                 image: res.data[1],
@@ -62,3 +63,11 @@ export default class Tracks extends Component {
         )
     }
 }
+
+function mapStateToProps(state){
+    return{
+        playlist_id: state.playlist_id
+    }
+}
+
+export default connect(mapStateToProps)(Tracks);

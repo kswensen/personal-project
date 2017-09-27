@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import './Browse.css';
+import { updateCategoryID, updateCategoryName } from '../../ducks/reducer';
 import axios from 'axios';
+import './Browse.css';
 
 class Browse extends Component{
     constructor(){
@@ -15,23 +16,29 @@ class Browse extends Component{
 
     componentDidMount(){
         axios.get('/api/getCategories').then(res => {
+            console.log(res.data);
             this.setState({
                 categories: res.data
             })
         });
     }
 
+    setCategory(name, id){
+        this.props.updateCategoryName(name);
+        this.props.updateCategoryID(id);
+    }
+
     render(){
         const mappedCategories = this.state.categories.map((category, i) => {
             return <ul key={i} className='album'>
-                <Link to={{ pathname: '/browse/playlists/', query: category.id }} className='link'>
+                <Link to='/browse/playlists/' className='link' onClick={() => this.setCategory(category.name, category.id)}>
                     <img src={category.icons[0].url}/>
                     <p>{category.name}</p>
                 </Link>
             </ul>
         });
         return(
-            <div className='color'>
+            <div className='browseBackground'>
                 {
                     this.props.user !== undefined
                     ?
@@ -41,7 +48,9 @@ class Browse extends Component{
                 }
                 <h2>Browse</h2>
                 <h4>Categories</h4>
-                {mappedCategories}
+                <div className='categories'>
+                    {mappedCategories}
+                </div>
             </div>
         )
     }
@@ -49,8 +58,10 @@ class Browse extends Component{
 
 function mapStateToProps(state){
     return{
-        user: state.user
+        user: state.user,
+        category_id: state.category_id,
+        category_name: state.category_name
     }
 }
 
-export default connect(mapStateToProps)(Browse);
+export default connect(mapStateToProps, { updateCategoryID, updateCategoryName })(Browse);

@@ -21,6 +21,7 @@
 .logo{
     height: 8vh;
     width: 8vw;
+    /* background: url('./images/app.co.png'); */
     background: white;
     margin-left: 20px;
 }
@@ -64,12 +65,23 @@
 
 .login{
     display: flex;
+    position: relative;
 }
 
 .login h4{
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .logout{
     align-self: center;
+}
+
+.profile{
+    width: 200px;
+    height: 330px;
+    background: red;
+    position: absolute;
+    display: flex;
+    justify-content: center;
 }

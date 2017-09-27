@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './NavBar.css';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
+import Profile from '../Profile/Profile';
 import { connect } from 'react-redux';
-import { search, updateFireRedirect, resetOffset, getUserInfo, clearUser } from '../../ducks/reducer';
+import { search, updateFireRedirect, resetOffset, getUserInfo, clearUser, toggleHidden } from '../../ducks/reducer';
 
 class NavBar extends Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class NavBar extends Component {
 
         this.state = {
             searchInput: "",
-            loggedIn: false
+            loggedIn: false,
+            hidden: true
         }
     }
 
@@ -70,13 +72,20 @@ class NavBar extends Component {
                         this.state.loggedIn
                             ?
                             <div className='login'>
-                                <Link to='/profile' className='link'>
-                                    <h4>{this.props.user.first_name} {this.props.user.last_name}</h4>
-                                </Link>
+                                <h4 onClick={() => this.props.toggleHidden()}>{this.props.user.first_name} {this.props.user.last_name}</h4>
                                 <a href={process.env.REACT_APP_LOGOUT} className='logout' onClick={() => this.props.clearUser()}><button>Log Out</button></a>
                             </div>
                             :
                             <a href={process.env.REACT_APP_LOGIN}><button className='loginButton'>Login</button></a>
+                    }
+                    {
+                        this.props.hidden
+                        ?
+                        null
+                        :
+                        <div className='profile'>
+                            <Profile />
+                        </div>
                     }
                 </div>
                 <div className='search'>
@@ -99,8 +108,9 @@ function mapStateToProps(state) {
         fireRedirect: state.fireRedirect,
         songOffset: state.songOffset,
         artistOffset: state.artistOffset,
-        user: state.user
+        user: state.user,
+        hidden: state.hidden
     }
 }
 
-export default connect(mapStateToProps, { search, updateFireRedirect, resetOffset, getUserInfo, clearUser })(NavBar);
+export default connect(mapStateToProps, { search, updateFireRedirect, resetOffset, getUserInfo, clearUser, toggleHidden })(NavBar);

@@ -1,34 +1,54 @@
 .browseBackground{
-    /* background: #036278; */
-    background: linear-gradient(to bottom, #08AEEA 0%, #2AF598 100%);    
+    background-color: #1d1d1d;
+    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
+    padding-top: 10px;
 }
+
 .link{
     text-decoration: none;
 }
 
 .link img{
     height: auto;
-    width: 350px;
+    width: 300px;
+    border-radius: 5px;
 }
 
-.album{
-    display: inline-block;
+.link:hover img{
+    width: 298px;
+    height: auto;
+    border: 1px solid white;
+}
+
+.browseAlbum{
     text-align: center;
-    padding: 0;
-    margin: .6vw;
+    display: table;
+    margin: 10px;
 }
 
-.album p{
+.browseAlbum h3{
     color: white;
-    margin-top: -50px;
+    margin-top: -100px;
+    font-size: 20px;
 }
 
-h4{
+.welcome{
     text-align: center;
+    color: white;
+    font-size: 24px;
 }
 
-h2{
+.title{
+    color: white;
+    font-size: 40px;
+    box-shadow: 0 1px 0 0 white;
+    margin-right: 8.5vw;
+    margin-left: 8.5vw;
+    margin-bottom: 10px;
     text-align: center;
+    padding: 5px;
+    padding-bottom: 10px;
+    padding-top: 30px;
 }
 
 .categories{
@@ -36,5 +56,4 @@ h2{
     flex-flow: wrap;
     justify-content: center;
     margin: 0 10px;
-
 }

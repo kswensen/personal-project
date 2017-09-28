@@ -210,7 +210,6 @@ class Search extends Component {
         return (
             <div className='background'>
                 <h4>Search Results</h4>
-                <h3>Global State: {this.props.searchTerm}</h3>
                 <h1>Songs</h1>
                 {filteredSongs}
                 <button onClick={() => this.getSongs()}>Want more songs?</button>

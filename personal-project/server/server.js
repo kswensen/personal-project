@@ -150,7 +150,7 @@ app.get('/api/getSongs', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/search?q=${searchTerm}&type=track&offset=${offset}`,
         headers: {
-            "Authorization": "Bearer BQDiu2CG7hge7o2B5e07XOYxMS3kvVmL6w4-8FMMJmeKEQq9ZoE8xUPtAbdiNWCp8RA-6lkHTpWBqYQlHLYMtduQN2NqZOHKvD_s1-dXcoOtnQcdEHQaKfKVqKDc8Qc02WWIgptn1AT62T6DEw"
+            "Authorization": "Bearer BQAbi1oIqdP71hwPPwKzXdNRuAVD28jeGLdh-ZM1LuNbbjsex36mO5VFFPE0qOyE4DKKsrQUyZAMuUsxQQL3lp_M2aVT0MRSYA6HENrELPoAt7FHlDLHxfG6KVxtosWKeKcVWqVs_Gdq6L8LQg"
         }
     }
 
@@ -257,7 +257,7 @@ app.get('/api/getCategories', (req, res) => {
     var options = {
         url: "https://api.spotify.com/v1/browse/categories?country=US&limit=50",
         headers: {
-            "Authorization": "Bearer BQA4d-IrdaA-XGT9b4mHj3PngXdCQtVp3uNEOZJShO1QWVYxP5fOeg_6Uroe4hRuFxA1iLo3v5vA2vjA9PK8WcdKGeL1LxCB3jNYrMskR6WnbGFGctqN96umb7l3SR5J1g4fEd9orANPDEd63w"
+            "Authorization": "Bearer BQAQxH1jMGachsBc1KQ0a1PFV8_51Syi3q8Y-lBcSrZbGp9RHAUTMlXuYZikzxf4LChbZLu5j1kO3mJ7nzAYlxeOt9cYX5O0y6nY7rqK_iqkWLsaGawdZaYoG_Xu0V3u8RFFykjNbMXyo2TBoA"
         }
     }
 
@@ -276,7 +276,7 @@ app.get('/api/getCategoryPlaylists', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=US&limit=20`,
         headers: {
-            "Authorization": "Bearer BQA4d-IrdaA-XGT9b4mHj3PngXdCQtVp3uNEOZJShO1QWVYxP5fOeg_6Uroe4hRuFxA1iLo3v5vA2vjA9PK8WcdKGeL1LxCB3jNYrMskR6WnbGFGctqN96umb7l3SR5J1g4fEd9orANPDEd63w"
+            "Authorization": "Bearer BQAQxH1jMGachsBc1KQ0a1PFV8_51Syi3q8Y-lBcSrZbGp9RHAUTMlXuYZikzxf4LChbZLu5j1kO3mJ7nzAYlxeOt9cYX5O0y6nY7rqK_iqkWLsaGawdZaYoG_Xu0V3u8RFFykjNbMXyo2TBoA"
         }
     }
 
@@ -295,7 +295,7 @@ app.get('/api/getPlaylistsTracks', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/users/spotify/playlists/${id}`,
         headers: {
-            "Authorization": "Bearer BQA4d-IrdaA-XGT9b4mHj3PngXdCQtVp3uNEOZJShO1QWVYxP5fOeg_6Uroe4hRuFxA1iLo3v5vA2vjA9PK8WcdKGeL1LxCB3jNYrMskR6WnbGFGctqN96umb7l3SR5J1g4fEd9orANPDEd63w"
+            "Authorization": "Bearer BQAQxH1jMGachsBc1KQ0a1PFV8_51Syi3q8Y-lBcSrZbGp9RHAUTMlXuYZikzxf4LChbZLu5j1kO3mJ7nzAYlxeOt9cYX5O0y6nY7rqK_iqkWLsaGawdZaYoG_Xu0V3u8RFFykjNbMXyo2TBoA"
         }
     }
 

@@ -1,3 +1,16 @@
+.tracksBackground{
+    background-color: #1d1d1d;
+    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
+}
+
+.back{
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
 .header{
     display: flex;
     align-items: center;
@@ -15,23 +28,68 @@
 .headerRight{
     display: flex;
     flex-flow: column;
+    color: white;
 }
 
-.song{
-    background: black;
+.playlistTitle{
+    box-shadow: 0 1px 0 0 white;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    width: max-content;
+}
+
+.playlistTitle h2{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.table{
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    position: relative;
+    box-shadow: 0 1px 0 0 #767676;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 25px;
+}
+
+.tableTitle{
+    position: absolute;
+    left: 130px;
+}
+
+.tableAlbum{
+    position: absolute;
+    left: 39.75%;
+}
+
+.tableArtist{
+    position: absolute;
+    left: 80.75%;
+}
+
+.track{
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: white;
+    box-shadow: 0 1px 0 0 #767676;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 75px;
+}
+
+.track p{
+    font-size: 18px;
 }
 
 .titleContainer{
     position: absolute;
     left: 150px;
-    max-width: 50ch;
+    max-width: 60ch;
     text-align: center;
     display: flex;
-    
 }
 
 .albumContainer{

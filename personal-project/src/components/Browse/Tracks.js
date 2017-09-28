@@ -33,30 +33,37 @@ class Tracks extends Component {
                 artistArray.push(track.track.artists[j].name);
             }
             const splitArtists = artistArray.toLocaleString().replace(',', ', ');
-            return <ul key={i} className='song'>
+            return <ul key={i} className='track'>
                 <img src={track.track.album.images[2].url} />
                 <div className='titleContainer'>
-                    <p>Title: {track.track.name}</p>
+                    <p>{track.track.name}</p>
                 </div>
                 <div className='albumContainer'>
-                    <p>Album: {track.track.album.name}</p>
+                    <p>{track.track.album.name}</p>
                 </div>
                 <div className='artistContainer'>
-                    <p>Artist: {splitArtists}</p>
+                    <p>{splitArtists}</p>
                 </div>
             </ul>
         });
         return (
-            <div>
-                <h2 onClick={() => window.history.back()}>&lt;</h2>
+            <div className='tracksBackground'>
+                <h2 onClick={() => window.history.back()} className='back'>&lt; Back</h2>
                 <div className='header'>
                     <div className='headerLeft'>
                         <img src={this.state.image} />
                     </div>
                     <div className='headerRight'>
-                        <h2>{this.state.name}</h2>
+                        <div className='playlistTitle'>
+                            <h2>{this.state.name}</h2>
+                        </div>
                         <p>{this.state.description}</p>
                     </div>
+                </div>
+                <div className='table'>
+                    <p className='tableTitle'>Title</p>
+                    <p className='tableAlbum'>Album</p>
+                    <p className='tableArtist'>Artist</p>
                 </div>
                 {mappedTracks}
             </div>

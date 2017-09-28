@@ -32,9 +32,12 @@ class Playlists extends Component{
             </ul>
         });
         return(
-            <div>
-                <h2 onClick={() => window.history.back()}>&lt;</h2>
-                <h1>{this.props.category_name}</h1>
+            <div className='playlistsBackground'>
+                <div className='headerContainer'>
+                    <h2 onClick={() => window.history.back()} className='back'>&lt; Back</h2>
+                    <h1 className='categoryTitle'>{this.props.category_name}</h1>
+                    <div></div>
+                </div>
                 <div className='playlistContainer'>
                     {mappedPlaylists}
                 </div>

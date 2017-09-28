@@ -16,7 +16,6 @@ class Browse extends Component{
 
     componentDidMount(){
         axios.get('/api/getCategories').then(res => {
-            console.log(res.data);
             this.setState({
                 categories: res.data
             })
@@ -30,24 +29,25 @@ class Browse extends Component{
 
     render(){
         const mappedCategories = this.state.categories.map((category, i) => {
-            return <ul key={i} className='album'>
+            return <ul key={i} className='browseAlbum'>
                 <Link to='/browse/playlists/' className='link' onClick={() => this.setCategory(category.name, category.id)}>
                     <img src={category.icons[0].url}/>
-                    <p>{category.name}</p>
+                    <h3>{category.name}</h3>
                 </Link>
             </ul>
         });
         return(
             <div className='browseBackground'>
+                <div className='welcomeMessage'>
                 {
                     this.props.user !== undefined
                     ?
-                    <h4>Welcome back, {this.props.user.first_name} {this.props.user.last_name}</h4>
+                    <h4 className='welcome'>Welcome back, {this.props.user.first_name} {this.props.user.last_name}</h4>
                     :
                     null
                 }
-                <h2>Browse</h2>
-                <h4>Categories</h4>
+                </div>
+                <h3 className='title'>Categories</h3>
                 <div className='categories'>
                     {mappedCategories}
                 </div>

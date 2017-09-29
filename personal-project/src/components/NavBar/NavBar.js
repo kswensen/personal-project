@@ -63,7 +63,7 @@ class NavBar extends Component {
                     </Link>
                 </div>
                 <div className='myMusic'>
-                    <Link to='myMusic' className='link'>
+                    <Link to='/myMusic' className='link'>
                         <h3>My Music</h3>
                     </Link>
                 </div>

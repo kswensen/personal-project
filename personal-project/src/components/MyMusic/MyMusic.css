@@ -1,34 +1,79 @@
-.song{
+.myMusicBackground{
+    background-color: #1d1d1d;
+    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
+    height: 92vh;
+}
+
+.noUserContainer{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.noUser{
+    font-family: 'Lobster', Georgia, Times, serif;
+    color: #84c425;
+    font-size: 50px;
+    font-style: italic;
+    margin-top: 42vh;
+    margin-bottom: 20px;
+}
+
+.noUserLogin{
+    border-radius: 50px;
+    background: none;
+    border: 2px solid #767676;
+    padding-bottom: 5px;
+    width: 100px;
+    font-family: 'Lobster', Georgia, Times, serif;
+    color: #84c425;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.noUserLogin:hover{
     background: black;
+}
+
+.myMusicSong{
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: white;
+    box-shadow: 0 1px 0 0 #767676;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 90px;
 }
 
-.titleContainer{
-    position: absolute;
-    left: 150px;
-    max-width: 50ch;
-    text-align: center;
+.myMusicSong p{
+    font-size: 18px;
+}
+
+.musicTitleContainer{
     display: flex;
-    
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
 }
 
-.addSong{
+.musicTitle{
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    width: max-content;
+    box-shadow: 0 1px 0 0 white;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.deleteSong{
     margin-right: 10px;
     font-size: 20px;
     cursor: pointer;
-}
-
-.albumContainer{
     position: absolute;
-    left: 40%;
-    max-width: 60ch;
-    text-align: center;
-}
-
-.artistContainer{
-    position: absolute;
-    left: 80%;
+    left: 120px;
 }

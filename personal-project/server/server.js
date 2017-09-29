@@ -257,7 +257,7 @@ app.get('/api/getCategories', (req, res) => {
     var options = {
         url: "https://api.spotify.com/v1/browse/categories?country=US&limit=50",
         headers: {
-            "Authorization": "Bearer BQDP_-ErRgeTj_gF94sh4rOLt90LkntwDzJGgiv0NrbHuVP-K_jLtMNugjEBJ3buueHseQMq0-ghG-o75LUpMuyn3moR9_QPzNyAvoVDF2-5m5med4LXVFyeGIpm7w5KEuLdiOUWgQ03srGw6Q"
+            "Authorization": "Bearer BQCRnFDrXQP2GGrWHf8baRXIpo4QNziPitsRhQOnX4faV5_TYBL3TNOHFCluYk5q_zf9BHs7LdFwy8K3rW_T2dUohEpI_YJuI-yqEzE9mc4Gj7N9CeWgk0EeaC2cBc7mPuqXVcLcmk94IzgGdw"
         }
     }
 
@@ -276,7 +276,7 @@ app.get('/api/getCategoryPlaylists', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=US&limit=20`,
         headers: {
-            "Authorization": "Bearer BQDP_-ErRgeTj_gF94sh4rOLt90LkntwDzJGgiv0NrbHuVP-K_jLtMNugjEBJ3buueHseQMq0-ghG-o75LUpMuyn3moR9_QPzNyAvoVDF2-5m5med4LXVFyeGIpm7w5KEuLdiOUWgQ03srGw6Q"
+            "Authorization": "Bearer BQCRnFDrXQP2GGrWHf8baRXIpo4QNziPitsRhQOnX4faV5_TYBL3TNOHFCluYk5q_zf9BHs7LdFwy8K3rW_T2dUohEpI_YJuI-yqEzE9mc4Gj7N9CeWgk0EeaC2cBc7mPuqXVcLcmk94IzgGdw"
         }
     }
 
@@ -295,7 +295,7 @@ app.get('/api/getPlaylistsTracks', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/users/spotify/playlists/${id}`,
         headers: {
-            "Authorization": "Bearer BQDP_-ErRgeTj_gF94sh4rOLt90LkntwDzJGgiv0NrbHuVP-K_jLtMNugjEBJ3buueHseQMq0-ghG-o75LUpMuyn3moR9_QPzNyAvoVDF2-5m5med4LXVFyeGIpm7w5KEuLdiOUWgQ03srGw6Q"
+            "Authorization": "Bearer BQCRnFDrXQP2GGrWHf8baRXIpo4QNziPitsRhQOnX4faV5_TYBL3TNOHFCluYk5q_zf9BHs7LdFwy8K3rW_T2dUohEpI_YJuI-yqEzE9mc4Gj7N9CeWgk0EeaC2cBc7mPuqXVcLcmk94IzgGdw"
         }
     }
 

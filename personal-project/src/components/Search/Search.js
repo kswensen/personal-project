@@ -147,23 +147,27 @@ class Search extends Component {
                         existingSong = true;
                     }
                 }
-                return <ul key={i} className='song'>
+                return <ul key={i} className='track'>
                     <img src={song.song_artwork} />
+                    {
+                        existingSong
+                            ?
+                            <p className='deleteSong'>X</p>
+                            :
+                            /* <div className='plus'>
+                                <div class="horizontal"></div>
+                                <div class="vertical"></div>
+                            </div> */
+                            <p className='addSong' onClick={() => this.addSong(song.songid)}>+</p>
+                    }
                     <div className='titleContainer'>
-                        {
-                            existingSong
-                                ?
-                                <p className='addSong'>X</p>
-                                :
-                                <p className='addSong' onClick={() => this.addSong(song.songid)}>+</p>
-                        }
-                        <p>Title: {song.title}</p>
+                        <p>{song.title}</p>
                     </div>
                     <div className='albumContainer'>
-                        <p>Album: {song.album}</p>
+                        <p>{song.album}</p>
                     </div>
                     <div className='artistContainer'>
-                        <p>Artist: {splitArtists}</p>
+                        <p>{splitArtists}</p>
                     </div>
                 </ul>
             });
@@ -178,8 +182,10 @@ class Search extends Component {
                 const splitArtists = album.artist.toLocaleString().replace(',', ', ');
                 return <ul key={i} className='album'>
                     <img src={album.album_artwork} />
-                    <p>Album: {album.album}</p>
-                    <p>Artist: {splitArtists}</p>
+                    <div className='albumDetails'>
+                        <p className='albumTitle'>{album.album}</p>
+                        <p className='albumArtists'>{splitArtists}</p>
+                    </div>
                 </ul>
             })
             if (!this.state.albums[0]) {
@@ -197,8 +203,8 @@ class Search extends Component {
                 }
             })
             filteredArtists = filteredArtists.map((artist, i) => {
-                return <ul key={i}>
-                    <p>Artist: {artist}</p>
+                return <ul key={i} className='artistList'>
+                    <p>{artist}</p>
                 </ul>
             })
             if (!this.state.artists[0]) {
@@ -209,16 +215,31 @@ class Search extends Component {
         }
         return (
             <div className='background'>
-                <h4>Search Results</h4>
-                <h1>Songs</h1>
+                <div className='resultsContainer'>
+                    <h4 className='results'>Search Results</h4>
+                </div>
+                <h1 className='sectionHeader'>Songs</h1>
+                <div className='table'>
+                    <p className='tableTitle'>Title</p>
+                    <p className='tableAlbum'>Album</p>
+                    <p className='tableArtist'>Artist</p>
+                </div>
                 {filteredSongs}
-                <button onClick={() => this.getSongs()}>Want more songs?</button>
-                <h1>Albums</h1>
-                {filteredAlbums}
-                <button onClick={() => this.getAlbums()}>Want more albums?</button>
-                <h1>Artists</h1>
+                <div className='spotifyButtonContainer'>
+                    <button onClick={() => this.getSongs()} className='spotifyButton'>Want more songs?</button>
+                </div>
+                <h1 className='sectionHeader'>Albums</h1>
+                <div className='filteredAlbumsContainer'>
+                    {filteredAlbums}
+                </div>
+                <div className='spotifyButtonContainer'>
+                    <button onClick={() => this.getAlbums()} className='spotifyButton'>Want more albums?</button>
+                </div>
+                <h1 className='sectionHeader'>Artists</h1>
                 {filteredArtists}
-                <button onClick={() => this.getArtists()}>Want more artists?</button>
+                <div className='spotifyButtonContainerBottom'>
+                    <button onClick={() => this.getArtists()} className='spotifyButton'>Want more artists?</button>
+                </div>
             </div>
         )
     }

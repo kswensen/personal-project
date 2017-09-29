@@ -19,8 +19,8 @@ export default (
         <Switch>
             <Route exact path='/browse' component={Browse}/>
             <Switch>
-                <Route exact path='/browse/playlists' component={Playlists}/>
                 <Route path='/browse/playlists/tracks' component={Tracks}/>
+                <Route path='/browse/playlists' component={Playlists}/>
             </Switch>
         </Switch>
     </Switch>

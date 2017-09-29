@@ -1,0 +1,58 @@
+.profileContainer{
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    justify-content: space-around;
+    color: white;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.profile h4{
+    margin-top: -5px;
+    font-family: 'Lobster', Georgia, Times, serif;
+    font-size: 24px;
+    width: max-content;
+    box-shadow: 0 1px 0 0 white;
+}
+
+.profileValues{
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+}
+
+.profileValues input{
+    margin-top: 5px;
+    padding-left: 5px;
+    color: white;
+    font-family: 'Cabin', Helvetica, Arial, sans-serif;
+    font-style: italic;
+    border: none;
+    background: none;
+    box-shadow: 0 1px 0 0 white;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.update{
+    border: none;
+    background: none;
+    font-family: 'Lobster', Georgia, Times, serif;
+    color: #84c425;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.cancel{
+    border: none;
+    background: none;
+    font-family: 'Lobster', Georgia, Times, serif;
+    color: firebrick;
+    font-size: 18px;
+    cursor: pointer;
+}

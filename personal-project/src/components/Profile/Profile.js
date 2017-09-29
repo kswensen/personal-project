@@ -18,22 +18,24 @@ class Profile extends Component{
 
     render(){
         return(
-            <div>
+            <div className='profileContainer'>
                 <h4>Profile</h4>
-                <div>
+                <div className='profileValues'>
                     <h3>First Name: </h3>
                     <input defaultValue={this.props.user.first_name} onChange={(e) => this.props.updateFirst(e.target.value)}/>
                 </div>
-                <div>
+                <div className='profileValues'>
                     <h3>Last Name: </h3>
                     <input defaultValue={this.props.user.last_name} onChange={(e) => this.props.updateLast(e.target.value)}/>
                 </div>
-                <div>
+                <div className='profileValues'>
                     <h3>Favorite Genre: </h3>
                     <input defaultValue={this.props.user.favorite_genre} onChange={(e) => this.props.updateGenre(e.target.value)}/>
                 </div>
-                <button onClick={() => this.update()}>Update User</button>
-                <button onClick={() => this.cancel()}>Cancel</button>
+                <div className='buttonContainer'>
+                    <button onClick={() => this.update()} className='update'>Update User</button>
+                    <button onClick={() => this.cancel()} className='cancel'>Cancel</button>
+                </div>
             </div>
         )
     }

@@ -54,7 +54,7 @@ class NavBar extends Component {
             <div className='navbarContainer'>
                 <div className='logoContainer'>
                     <Link to='/' className='link'>
-                        <div className='logo'></div>
+                        <h3 className='sway'>Sway</h3>
                     </Link>
                 </div>
                 <div className='browse'>
@@ -72,8 +72,10 @@ class NavBar extends Component {
                         this.state.loggedIn
                             ?
                             <div className='login'>
-                                <h4 onClick={() => this.props.toggleHidden()}>{this.props.user.first_name} {this.props.user.last_name}</h4>
-                                <a href={process.env.REACT_APP_LOGOUT} className='logout' onClick={() => this.props.clearUser()}><button>Log Out</button></a>
+                                <div className='username'>
+                                    <h4 onClick={() => this.props.toggleHidden()}>{this.props.user.first_name} {this.props.user.last_name}</h4>
+                                </div>
+                                <a href={process.env.REACT_APP_LOGOUT} onClick={() => this.props.clearUser()}><button className='logout'>Log Out</button></a>
                             </div>
                             :
                             <a href={process.env.REACT_APP_LOGIN}><button className='loginButton'>Login</button></a>
@@ -83,8 +85,11 @@ class NavBar extends Component {
                         ?
                         null
                         :
-                        <div className='profile'>
-                            <Profile />
+                        <div>
+                            <div className='arrowUp'></div>
+                            <div className='profile'>
+                                <Profile />
+                            </div>
                         </div>
                     }
                 </div>

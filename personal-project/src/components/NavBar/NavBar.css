@@ -6,24 +6,30 @@
     justify-content: space-between;
     align-items: center;
     color: #84c425;
-    /* color: #036278; Sway Blue*/
 }
 
 .link{
     color: #84c425;
     text-decoration: none;
+    font-family: 'Lobster', Georgia, Times, serif;
+    font-style: italic;
 }
 
 .logoContainer{
-
+    margin-left: 30px;
+    margin-bottom: 10px;
 }
 
-.logo{
-    height: 8vh;
-    width: 8vw;
-    /* background: url('./images/app.co.png'); */
-    background: white;
-    margin-left: 20px;
+.sway{
+    font-size: 50px;
+}
+
+.browse{
+    font-size: 24px;
+}
+
+.myMusic{
+    font-size: 24px;
 }
 
 .search{
@@ -32,10 +38,6 @@
     margin-right: 20px;
     height: 100%;
     width: 400px;
-}
-
-.search:hover input{
-    width: 350px;
 }
 
 .searchLogo{
@@ -55,8 +57,7 @@
     padding-left: 5px;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
+    width: 350px;
 }
 
 .invisible{
@@ -66,22 +67,63 @@
 .login{
     display: flex;
     position: relative;
+    align-items: center;
 }
 
-.login h4{
+.username{
+    box-shadow: 1px 0 0 0 #84c425;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.username h4{
     margin-right: 10px;
+    font-family: 'Cabin', Helvetica, Arial, sans-serif;
+    font-size: 20px;
     cursor: pointer;
 }
 
 .logout{
-    align-self: center;
+    border: none;
+    background: none;
+    font-family: 'Lobster', Georgia, Times, serif;
+    color: #84c425;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.loginButton{
+    border: none;
+    background: none;
+    font-family: 'Lobster', Georgia, Times, serif;
+    color: #84c425;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.arrowUp{
+    position: absolute;
+    top: 5.2%;
+    width: 0; 
+    height: 0; 
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 60px solid #3a3a3a;    ;
 }
 
 .profile{
     width: 200px;
     height: 330px;
-    background: red;
+    background-color: #1d1d1d;
+    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
     position: absolute;
+    top: 6.5%;
     display: flex;
     justify-content: center;
+    border-radius: 5px;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
 }

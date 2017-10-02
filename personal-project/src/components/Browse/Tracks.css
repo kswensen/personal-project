@@ -34,7 +34,7 @@
 
 .playlistTitle{
     box-shadow: 0 1px 0 0 white;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     margin-bottom: 10px;
     width: max-content;
 }
@@ -63,12 +63,12 @@
 
 .tableAlbum{
     position: absolute;
-    left: 39.75%;
+    left: 75.5%;
 }
 
 .tableArtist{
     position: absolute;
-    left: 80.75%;
+    left: 44.75%;
 }
 
 .track{
@@ -96,12 +96,12 @@
 
 .albumContainer{
     position: absolute;
-    left: 40%;
+    left: 75%;
     max-width: 60ch;
     text-align: center;
 }
 
 .artistContainer{
     position: absolute;
-    left: 80%;
+    left: 45%;
 }

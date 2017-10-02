@@ -7,13 +7,19 @@ const initialState = {
     first_name: '',
     last_name: '',
     favorite_genre: '',
-    songOffset: 0,
-    artistOffset: 0,
-    albumOffset: 0,
+    songOffset: -20,
+    artistOffset: -20,
+    albumOffset: -20,
     category_name: '',
     category_id: '',
     playlist_id: '',
-    hidden: true
+    hidden: true,
+    album: '',
+    album_artwork: '',
+    artist: '',
+    newRelease: '',
+    newReleaseImage: '',
+    newReleaseTitle: ''
 }
 
 const UPDATE_SEARCH_TERM = "UPDATE_SEARCH_TERM";
@@ -32,6 +38,12 @@ const UPDATE_CATEGORY_NAME = 'UPDATE_CATEGORY_NAME';
 const UPDATE_CATEGORY_ID = 'UPDATE_CATEGORY_ID';
 const UPDATE_PLAYLIST_ID = 'UPDATE_PLAYLIST_ID';
 const TOGGLE_HIDDEN = 'TOGGLE_HIDDEN';
+const UPDATE_ALBUM = 'UPDATE_ALBUM';
+const UPDATE_ALBUM_ARTWORK = 'UPDATE_ALBUM_ARTWORK';
+const UPDATE_ARTIST = 'UPDATE_ARTIST';
+const UPDATE_NEW_RELEASE = 'UPDATE_NEW_RELEASE';
+const UPDATE_NEW_RELEASE_IMAGE = 'UPDATE_NEW_RELEASE_IMAGE';
+const UPDATE_NEW_RELEASE_TITLE = 'UPDATE_NEW_RELEASE_TITLE';
 
 export function search(entered){
     return {
@@ -153,6 +165,48 @@ export function toggleHidden(){
     }
 }
 
+export function updateAlbum(album){
+    return {
+        type: UPDATE_ALBUM,
+        payload: album
+    }
+}
+
+export function updateAlbumArtwork(artwork){
+    return {
+        type: UPDATE_ALBUM_ARTWORK,
+        payload: artwork
+    }
+}
+
+export function updateArtist(artist){
+    return {
+        type: UPDATE_ARTIST,
+        payload: artist
+    }
+}
+
+export function updateNewRelease(album){
+    return {
+        type: UPDATE_NEW_RELEASE,
+        payload: album
+    }
+}
+
+export function updateNewReleaseImage(url){
+    return {
+        type: UPDATE_NEW_RELEASE_IMAGE,
+        payload: url
+    }
+}
+
+export function updateNewReleaseTitle(title){
+    return {
+        type: UPDATE_NEW_RELEASE_TITLE,
+        payload: title
+    }
+}
+
 export default function reducer(state = initialState, action){
     switch(action.type){
 
@@ -202,7 +256,25 @@ export default function reducer(state = initialState, action){
             return Object.assign({}, state, {playlist_id: action.payload}); 
 
         case TOGGLE_HIDDEN:
-            return Object.assign({}, state, {hidden: !state.hidden}); 
+            return Object.assign({}, state, {hidden: !state.hidden});
+
+        case UPDATE_ALBUM:
+            return Object.assign({}, state, {album: action.payload});
+
+        case UPDATE_ALBUM_ARTWORK:
+            return Object.assign({}, state, {album_artwork: action.payload});
+
+        case UPDATE_ARTIST:
+            return Object.assign({}, state, {artist: action.payload});
+
+        case UPDATE_NEW_RELEASE:
+            return Object.assign({}, state, {newRelease: action.payload});
+
+        case UPDATE_NEW_RELEASE_IMAGE:
+            return Object.assign({}, state, {newReleaseImage: action.payload});
+
+        case UPDATE_NEW_RELEASE_TITLE:
+            return Object.assign({}, state, {newReleaseTitle: action.payload});
              
         default:
             return state;

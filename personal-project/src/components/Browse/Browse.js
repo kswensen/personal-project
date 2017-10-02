@@ -38,15 +38,6 @@ class Browse extends Component{
         });
         return(
             <div className='browseBackground'>
-                <div className='welcomeMessage'>
-                {
-                    this.props.user !== undefined
-                    ?
-                    <h4 className='welcome'>Welcome back, {this.props.user.first_name} {this.props.user.last_name}</h4>
-                    :
-                    null
-                }
-                </div>
                 <h3 className='title'>Categories</h3>
                 <div className='categories'>
                     {mappedCategories}

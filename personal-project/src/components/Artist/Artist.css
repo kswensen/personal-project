@@ -1,0 +1,24 @@
+.artistBackground{
+    background-color: #1d1d1d;
+    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
+}
+
+.titleArtistContainer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.titleArtist{
+    color: white;
+    font-size: 40px;
+    box-shadow: 0 1px 0 0 white;
+    width: max-content;
+    padding-bottom: 10px;
+}
+
+.artistAlbum{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}

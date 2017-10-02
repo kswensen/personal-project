@@ -9,10 +9,16 @@
     margin: 10px;
 }
 
+.playlistAlbumDetails{
+    display: flex;
+    justify-content: center;
+}
+
 .playlistAlbum p{
     margin-top: 5px;
     color: white;
     font-size: 22px;
+    max-width: 20ch;
 }
 
 .link{

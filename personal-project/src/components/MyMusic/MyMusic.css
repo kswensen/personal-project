@@ -1,7 +1,8 @@
-.myMusicBackground{
-    background-color: #1d1d1d;
-    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
-    height: 92vh;
+.albumLink{
+    text-decoration: none;
+    color: white;
+    font-family: 'Cabin', Helvetica, Arial, sans-serif;
+    font-size: 18px;
 }
 
 .noUserContainer{
@@ -35,6 +36,11 @@
 
 .noUserLogin:hover{
     background: black;
+}
+
+.userContainer{
+    background-color: #1d1d1d;
+    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
 }
 
 .myMusicSong{

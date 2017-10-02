@@ -27,7 +27,9 @@ class Playlists extends Component{
             return <ul key={i} className='playlistAlbum'>
                 <Link to='/browse/playlists/tracks/' className='link' onClick={() => this.props.updatePlaylistID(playlist.id)}>
                     <img src={playlist.images[0].url}/>
-                    <p>{playlist.name}</p>
+                    <div className='playlistAlbumDetails'>
+                        <p>{playlist.name}</p>
+                    </div>
                 </Link>
             </ul>
         });

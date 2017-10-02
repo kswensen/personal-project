@@ -52,36 +52,16 @@
 
 .spotifyButton:hover{
     background: #84c425;
+} 
+
+.deleteSong{
+    transform: rotate(45deg);
+    transition: all 0.3s ease 0s;
 }
 
-.plus{
-    width: 200px;
-    height: 200px;
-    position: relative;
+.deleteSong:hover{
+    color: crimson;
 }
-
-
-  
-  .horizontal {
-    width: 70%;
-    height: 20%;
-    left: 15%;
-    top: 40%;
-    margin: 0 auto;
-    position: absolute;
-    background-color: #fff;
-  }
-  
-  .vertical {
-    width: 20%;
-    height: 70%;
-    left: 40%;
-    top: 15%;
-    margin: 0 auto;
-    position: absolute;
-    background-color: #fff;
-  }
-  
 
 .addSong{
     margin-right: 10px;
@@ -89,26 +69,21 @@
     position: absolute;
     left: 120px;
     font-size: 50px;
+    transition: all 0.3s ease 0s;
 }
 
-.titleContainer{
-    position: absolute;
-    left: 150px;
-    max-width: 50ch;
-    text-align: center;
-    display: flex;
+.addSong:hover{
+    color: #84c425;
 }
 
-.albumContainer{
+.searchExplicit{
+    border: 1px solid #767676;
+    border-radius: 3px;
+    color: #767676;
+    font-size: 12px;
+    padding: 3px;
     position: absolute;
-    left: 40%;
-    max-width: 60ch;
-    text-align: center;
-}
-
-.artistContainer{
-    position: absolute;
-    left: 80%;
+    left: 39.75%;
 }
 
 .album{
@@ -152,4 +127,18 @@
     font-size: 20px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.noAlbumMatch{
+    margin-left: 10px;
+    color: white;
+    font-size: 20px; 
+    font-family: 'Cabin', Helvetica, Arial, sans-serif;
+}
+
+.noMatch{
+    margin-left: 20px;
+    color: white;
+    font-size: 20px; 
+    font-family: 'Cabin', Helvetica, Arial, sans-serif;
 }

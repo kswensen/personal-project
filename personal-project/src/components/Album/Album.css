@@ -1,0 +1,63 @@
+.albumBackground{
+    background-color: #1d1d1d;
+    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
+}
+
+.albumSong{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    box-shadow: 0 1px 0 0 #767676;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 40px;
+}
+
+.addAlbumSong{
+    margin-right: 10px;
+    cursor: pointer;
+    position: absolute;
+    left: 120px;
+    transition: all 0.3s ease 0s;
+}
+
+.addAlbumSong:hover{
+    color: #84c425;
+}
+
+.deleteAlbumSong{
+    margin-right: 10px;
+    cursor: pointer;
+    position: absolute;
+    left: 120px;
+    transform: rotate(45deg);
+    transition: all 0.3s ease 0s;
+}
+
+.deleteAlbumSong:hover{
+    color: crimson;
+}
+
+.songNumber{
+    margin-left: 30px;
+}
+
+.explicit{
+    border: 1px solid #767676;
+    border-radius: 3px;
+    color: #767676;
+    font-size: 12px;
+    padding: 3px;
+    position: absolute;
+    left: 85%;
+}
+
+.time{
+    position: absolute;
+    left: 93%
+}
+
+.propAlbum{
+    max-width: 32ch;
+}

@@ -52,8 +52,10 @@ class MyMusic extends Component {
     render() {
         const mappedSongs = this.state.mySongs.map((song, i) => {
             const splitArtists = song.artist.toLocaleString().replace(',', ', ');
+            const newUri = song.songuri.replace('spotify:track:', '');
             return <ul key={i} className='myMusicSong'>
-                <iframe src={"https://open.spotify.com/embed?uri=" + song.songuri} width="80" height="80" frameborder="0" allowtransparency="true"></iframe>
+                <iframe src={`https://open.spotify.com/embed?uri=spotify%3Atrack%3A${newUri}`} width="80" height="80" frameborder="0" allowtransparency="true"></iframe>
+                {/* <iframe src={iframe} width="80" height="80" frameborder="0" allowtransparency="true"></iframe> */}
                 <p className='deleteSong' onClick={() => this.removeSong(song.songid)}>&#10010;</p>
                 <div className='titleContainer'>
                     <p>{this.truncateString(song.title, 52)}</p>
@@ -71,7 +73,7 @@ class MyMusic extends Component {
             </ul>
         });
         return (
-            <div>
+            <div className='myMusicBackground'>
                 {
                     this.props.user === undefined
                         ?

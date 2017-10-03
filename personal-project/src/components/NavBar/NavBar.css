@@ -126,3 +126,21 @@
     border-bottom: 1px solid gray;
     z-index: 10;
 }
+
+@media (max-width: 975px){
+    .browse{
+        font-size: 20px;
+    }
+    
+    .myMusic{
+        font-size: 20px;
+    }
+
+    .username h4{
+        font-size: 16px;
+    }
+
+    .logout{
+        font-size: 20px;
+    }
+}

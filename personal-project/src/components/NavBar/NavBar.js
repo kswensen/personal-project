@@ -73,7 +73,7 @@ class NavBar extends Component {
                             ?
                             <div className='login'>
                                 <div className='username'>
-                                    <h4 onClick={() => this.props.toggleHidden()}>{this.props.user.first_name} {this.props.user.last_name}</h4>
+                                    <h4 onClick={() => this.props.toggleHidden()} className='profileName'>{this.props.user.first_name} {this.props.user.last_name}</h4>
                                 </div>
                                 <a href={process.env.REACT_APP_LOGOUT} onClick={() => this.props.clearUser()}><button className='logout'>Log Out</button></a>
                             </div>

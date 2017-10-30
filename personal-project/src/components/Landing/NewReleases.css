@@ -1,4 +1,17 @@
 .newReleasesBackground{
     background-color: #1d1d1d;
-    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
+    background-image: linear-gradient(0deg, #1d1d1d 38%, #3a3a3a 100%);
+    background-size: cover;
 }
+
+/* @media (max-height: 1000px){
+    .newReleasesBackground{
+        height: 92vh;
+    }
+}
+
+@media (min-height: 1000px){
+    .newReleasesBackground{
+        height: 100%;
+    }
+} */

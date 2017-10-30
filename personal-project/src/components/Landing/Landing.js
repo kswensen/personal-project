@@ -20,6 +20,10 @@ class Landing extends Component {
                 newReleases: res.data
             });
         });
+        
+        axios.get('/api/getToken').then(res => {
+            console.log(res.data);
+        });
     }
 
     render() {

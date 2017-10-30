@@ -10,6 +10,7 @@ const express = require('express'),
     axios = require('axios'),
     request = require('request');
 
+let apiToken = '';
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -72,6 +73,42 @@ app.get('/auth/me', (req, res, next) => {
 app.get('/auth/logout', (req, res) => {
     req.logOut();
     res.redirect(302, 'http://localhost:3000/#/');
+});
+
+app.get('/api/getToken', (req, res) => {
+    function JSON_to_URLEncoded(element,key,list){
+        var list = list || [];
+        if(typeof(element)=='object'){
+          for (var idx in element)
+            JSON_to_URLEncoded(element[idx],key?key+'['+idx+']':idx,list);
+        } else {
+          list.push(key+'='+encodeURIComponent(element));
+        }
+        return list.join('&');
+      }
+      
+    var headers = {
+        headers: {
+            "Authorization": `Basic ${process.env.SPOTIFY_ENCODED_KEY}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    }
+
+    var body = {
+        grant_type: "client_credentials"
+    }
+    if(apiToken){
+        return res.status(200).send("ApiToken valid")
+    }
+    axios.post('https://accounts.spotify.com/api/token', JSON_to_URLEncoded(body) , headers).then(response => {
+        apiToken = response.data.access_token;
+        res.status(200).send("Api Token Received");
+        setTimeout(()=> {
+            apiToken = '';
+        }, 3600000);
+    }).catch(err => {
+        console.error(err);
+    })
 });
 
 app.get('/api/addSong', (req, res) => {
@@ -147,7 +184,7 @@ app.get('/api/getSongs', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/search?q=${searchTerm}&type=track&offset=${offset}`,
         headers: {
-            "Authorization": "Bearer BQAGMRfOzXamyqWQn3BUNho2do1OyK1UBGbHHYJmjFcMV8rRYl610JWaUNB5iWSiUK_8aiNzuQg-TFANuS5Faq6gp4xGAAnGebi2YwSzOqRvNSUq67gxVTXEMxqIuIebMocKuBuoX47Ec_IQVA"
+            "Authorization": `Bearer ${apiToken}`
         }
     }
 
@@ -199,7 +236,7 @@ app.get('/api/getArtists', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/search?q=${searchTerm}&type=Artist&offset=${offset}`,
         headers: {
-            "Authorization": "Bearer BQAGMRfOzXamyqWQn3BUNho2do1OyK1UBGbHHYJmjFcMV8rRYl610JWaUNB5iWSiUK_8aiNzuQg-TFANuS5Faq6gp4xGAAnGebi2YwSzOqRvNSUq67gxVTXEMxqIuIebMocKuBuoX47Ec_IQVA"
+            "Authorization": `Bearer ${apiToken}`
         }
     }
 
@@ -222,7 +259,7 @@ app.get('/api/getAlbums', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/search?q=${searchTerm}&type=Album&offset=${offset}`,
         headers: {
-            "Authorization": "Bearer BQAGMRfOzXamyqWQn3BUNho2do1OyK1UBGbHHYJmjFcMV8rRYl610JWaUNB5iWSiUK_8aiNzuQg-TFANuS5Faq6gp4xGAAnGebi2YwSzOqRvNSUq67gxVTXEMxqIuIebMocKuBuoX47Ec_IQVA"
+            "Authorization": `Bearer ${apiToken}`
         }
     }
 
@@ -255,7 +292,7 @@ app.get('/api/getCategories', (req, res) => {
     var options = {
         url: "https://api.spotify.com/v1/browse/categories?country=US&limit=50",
         headers: {
-            "Authorization": "Bearer BQAGMRfOzXamyqWQn3BUNho2do1OyK1UBGbHHYJmjFcMV8rRYl610JWaUNB5iWSiUK_8aiNzuQg-TFANuS5Faq6gp4xGAAnGebi2YwSzOqRvNSUq67gxVTXEMxqIuIebMocKuBuoX47Ec_IQVA"
+            "Authorization": `Bearer ${apiToken}`
         }
     }
 
@@ -274,7 +311,7 @@ app.get('/api/getCategoryPlaylists', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=US&limit=20`,
         headers: {
-            "Authorization": "Bearer BQAGMRfOzXamyqWQn3BUNho2do1OyK1UBGbHHYJmjFcMV8rRYl610JWaUNB5iWSiUK_8aiNzuQg-TFANuS5Faq6gp4xGAAnGebi2YwSzOqRvNSUq67gxVTXEMxqIuIebMocKuBuoX47Ec_IQVA"
+            "Authorization": `Bearer ${apiToken}`
         }
     }
 
@@ -293,7 +330,7 @@ app.get('/api/getPlaylistsTracks', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/users/spotify/playlists/${id}`,
         headers: {
-            "Authorization": "Bearer BQAGMRfOzXamyqWQn3BUNho2do1OyK1UBGbHHYJmjFcMV8rRYl610JWaUNB5iWSiUK_8aiNzuQg-TFANuS5Faq6gp4xGAAnGebi2YwSzOqRvNSUq67gxVTXEMxqIuIebMocKuBuoX47Ec_IQVA"
+            "Authorization": `Bearer ${apiToken}`
         }
     }
 
@@ -316,7 +353,7 @@ app.get('/api/getNewReleases', (req, res) => {
     var options = {
         url: "https://api.spotify.com/v1/browse/new-releases?country=US",
         headers: {
-            "Authorization": "Bearer BQAGMRfOzXamyqWQn3BUNho2do1OyK1UBGbHHYJmjFcMV8rRYl610JWaUNB5iWSiUK_8aiNzuQg-TFANuS5Faq6gp4xGAAnGebi2YwSzOqRvNSUq67gxVTXEMxqIuIebMocKuBuoX47Ec_IQVA"
+            "Authorization": `Bearer ${apiToken}`
         }
     }
 
@@ -334,7 +371,7 @@ app.get('/api/getAlbumTracks', (req, res) => {
     var options = {
         url: `https://api.spotify.com/v1/albums/${req.query.id}/tracks`,
         headers: {
-            "Authorization": "Bearer BQAGMRfOzXamyqWQn3BUNho2do1OyK1UBGbHHYJmjFcMV8rRYl610JWaUNB5iWSiUK_8aiNzuQg-TFANuS5Faq6gp4xGAAnGebi2YwSzOqRvNSUq67gxVTXEMxqIuIebMocKuBuoX47Ec_IQVA"
+            "Authorization": `Bearer ${apiToken}`
         }
     }
 

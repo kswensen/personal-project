@@ -1,7 +1,7 @@
 .loggedInLanding{
     padding-top: 20px;
     background-color: #1d1d1d;
-    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
+    background-image: linear-gradient(0deg, #1d1d1d 38%, #3a3a3a 100%);
 }
 
 .welcome{
@@ -21,7 +21,7 @@
     position: absolute;
     bottom: 0;
     background-color: #1d1d1d;
-    background-image: linear-gradient(345deg, #1d1d1d 38%, #3a3a3a 100%);
+    background-image: linear-gradient(0deg, #1d1d1d 38%, #3a3a3a 100%);
     height: 100vh;
     width: 100%;
     z-index: -1;
